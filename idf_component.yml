@@ -1,0 +1,21 @@
+version: "1.0.0"
+description: "Userspace SCTP stack (usrsctp) port for ESP-IDF. Used for WebRTC data channels."
+url: "https://github.com/vikramdattu/esp_usrsctp"
+repository: "https://github.com/vikramdattu/esp_usrsctp.git"
+issues: "https://github.com/vikramdattu/esp_usrsctp/issues"
+license: "Apache-2.0 AND BSD-3-Clause"
+tags:
+  - webrtc
+  - sctp
+  - networking
+  - data-channel
+targets:
+  - esp32
+  - esp32s2
+  - esp32s3
+  - esp32c3
+  - esp32c5
+  - esp32c6
+  - esp32p4
+dependencies:
+  idf: ">=5.4"

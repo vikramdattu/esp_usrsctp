@@ -1,0 +1,7 @@
+name: 'usrsctp'
+version: '0.9.5'
+cpe: cpe:2.3:a:sctplab:usrsctp:{}:*:*:*:*:*:*:*
+supplier: 'Organization: Espressif Systems (Shanghai) CO LTD'
+originator: 'Persons: Randall Stewart, Michael Tuexen'
+description: A portable userland implementation of the SCTP protocol. Bundled as a fork (vikramdattu/usrsctp) pinned at commit 32bb935, carrying ESP-specific patches (SPIRAM thread stacks, thread-safe netif API, sin6 overflow fix, LWIP support).
+url: https://github.com/sctplab/usrsctp
