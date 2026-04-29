@@ -27,3 +27,33 @@ jobs:
           esp_idf_version: ${{ matrix.idf_ver }}
           target: ${{ matrix.target }}
           path: examples/get_started
+
+  # IDF Linux target — runs the same get_started build as a host process.
+  # Catches non-LWIP / non-FreeRTOS regressions in the userspace SCTP
+  # path that the ESP-target jobs above would silently let through (the
+  # ESP path goes via SCTP_USE_LWIP=1 + SCTP_USE_RTOS=1, which masks
+  # most issues with the host code path).
+  build_linux:
+    runs-on: ubuntu-latest
+    container: espressif/idf:release-v5.5
+    steps:
+      - name: Checkout (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Build examples/get_started for IDF Linux target
+        shell: bash
+        run: |
+          git config --global --add safe.directory "*"
+          cd examples/get_started
+          . /opt/esp/idf/export.sh
+          idf.py --preview set-target linux
+          idf.py build
+
+      - name: Smoke-run the binary
+        shell: bash
+        run: |
+          cd examples/get_started
+          ./build/esp_usrsctp_get_started.elf | tee run.log
+          grep -q "esp_usrsctp build check complete" run.log
